@@ -1,0 +1,49 @@
+package lab2;
+import java.io.*;
+
+public class Lab2 {
+
+	public static void main(String[] args) throws IOExceptions{
+		//InputStreamReader consoleReader = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		Dictionary theDictionary = new Dictionary();
+		
+		String in;
+		File f = new File("");
+		
+		while (f.exists() == false) {
+			System.out.println("Type filename:");
+			in = br.readLine();
+			in = in.trim();
+			f = new File(in);
+		}
+		
+		
+		
+		
+		//FileReader fr = new FileReader(f);
+		BufferedReader bfr = new BufferedReader(new FileReader(f));
+		
+		String text = "";
+		String line;
+		
+		while ((line = bfr.readLine()) != null) {
+			text += " " + line;
+		}
+		bfr.close();
+		
+		text = text.trim();
+		text = text.toLowerCase();
+		System.out.println(text);
+		String[] words = text.split(" +"); // Should be static? is illegal
+		
+		for (String s : words) {
+			s = s.trim();
+			System.out.println(theDictionary.addString(s));
+		}
+		
+		
+	}
+
+}
