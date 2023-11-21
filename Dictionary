@@ -1,0 +1,72 @@
+package lab2;
+import java.util.ArrayList;
+
+public class Dictionary {
+	// attributes
+	private ArrayList<Word> theList;
+	private ArrayList<Word> backup = null;
+	
+	public Dictionary() {
+		this.theList = new ArrayList<Word>();
+	}
+	
+	public String addString(String arg) {
+		int size = theList.size();
+		
+		for (int i = 0; i < size; i++) {
+			String s = theList.get(i).getWord();
+			int count = theList.get(i).getCount();
+			
+			if (s == arg) {
+				theList.set(i,new Word(s, count + 1));
+				return theList.get(i).toString();
+			} 
+		}
+			theList.add(new Word(arg, 1));
+			return theList.get(size-1).toString();
+	}
+	
+	public String sortList(int arg) {
+		if (backup == null) {backup = new ArrayList<Word>(theList);} // backup the first time the list is sorted
+		
+		if (arg == Word.ORIGINAL) {
+			theList = backup;
+			Word.setCriterion(Word.ORIGINAL);
+			return "Word list was reset";
+			
+		} else if (arg == Word.BYCOUNTS || arg == Word.BYNAME) {
+			Word.setCriterion(arg);
+			// SORTING TIME *cries*
+			
+			for(int i = 0; i < (theList.size() - 1); i++) {
+				for(int j = i+1; j < theList.size(); j++) {
+					Word wrd = theList.get(j);
+					Word nxtWrd = theList.get(i);
+					int comp = wrd.compareTo(nxtWrd);
+					
+					if (comp == -1) {
+						theList.set(i, wrd);
+						theList.set(j, nxtWrd);
+					}
+				}
+			}// End of sorting :)
+			if (arg == Word.BYCOUNTS) {
+				return "Sorted by counts";
+			} else if (arg == Word.BYNAME) {
+				return "Sorted alphabetically";
+			}
+		}
+		return "Sort criterion not known";
+	}
+	
+	public String toString() {
+		String s = "Content: \n";
+		for (Word wrd : theList) {
+			s += wrd.toString();
+			s += "\n";
+		}
+		return s;
+	}
+	
+	
+}
