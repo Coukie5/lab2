@@ -11,9 +11,8 @@ public class Dictionary {
 	}
 	
 	public String addString(String arg) {
-		int size = theList.size();
 		
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < theList.size(); i++) {
 			String s = theList.get(i).getWord();
 			int count = theList.get(i).getCount();
 			
@@ -23,7 +22,7 @@ public class Dictionary {
 			} 
 		}
 			theList.add(new Word(arg, 1));
-			return theList.get(size-1).toString();
+			return theList.get(theList.size()-1).toString();
 	}
 	
 	public String sortList(int arg) {
